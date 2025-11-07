@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spotify Trending 2025</title>
+  <style>
+    :root {
+      --bg: #0f0f1a;
+      --card: rgba(30, 30, 60, 0.7);
+      --accent: #6e56cf;
+      --text: #e0e0ff;
+      --text-light: #a0a0cc;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, #6e56cf, #56b4cf);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+    .search-box {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    input[type="text"] {
+      flex: 1;
+      min-width: 280px;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: white;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    input[type="text"]::placeholder { color: #888; }
+    input[type="text"]:focus {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 0 3px rgba(110, 86, 207, 0.3);
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(110, 86, 207, 0.4);
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(110, 86, 207, 0.6);
+    }
+    .results {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .track-card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 1px solid rgba(110, 86, 207, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .track-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, #6e56cf, #56b4cf);
+    }
+    .track-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    .track-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    .track-info {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin: 0.3rem 0;
+    }
+    .popularity {
+      display: inline-block;
+      background: rgba(110, 86, 207, 0.3);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .spotify-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #1db954;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .spotify-link:hover {
+      text-decoration: underline;
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      font-size: 1.2rem;
+      color: #888;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      .search-box { flex-direction: column; }
+      input[type="text"], button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Spotify Trending 2025</h1>
+      <p>Discover trending Japanese music by genre</p>
+    </header>
+
+    <form method="POST" class="search-box">
+      <input
+        type="text"
+        name="genre"
+        placeholder="Try: JPOP, ANIME, ROCK, IDOL..."
+        value="{{ genre }}"
+        required
+      />
+      <button type="submit">Search</button>
+    </form>
+
+    {% if genre %}
+      <h2 style="margin: 2rem 0 1rem; opacity: 0.9;">
+        Top 5 in "<span style="color:#6e56cf">{{ genre }}</span>"
+      </h2>
+
+      <div class="results">
+        {% if tracks %}
+          {% for track in tracks %}
+          <div class="track-card">
+            <div class="track-title">
+              {{ loop.index }}. {{ track.name }}
+            </div>
+            <div class="track-info">Artist: {{ track.artist }}</div>
+            <div class="track-info">Album: {{ track.album }}</div>
+            <div class="track-info">
+              Popularity:
+              <span class="popularity">{{ track.popularity }}/100</span>
+            </div>
+            <a href="{{ track.link }}" target="_blank" class="spotify-link">
+              Play on Spotify
+            </a>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="no-results">
+            No tracks found. Try "jpop", "anime", or "citypop"
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
