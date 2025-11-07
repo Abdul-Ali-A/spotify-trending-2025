@@ -29,4 +29,6 @@ def api_tracks(genre):
         return jsonify({"error": "Invalid genre or API error", "details": str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+    port = int(os.getenv('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
