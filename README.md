@@ -24,4 +24,4 @@ SPOTIPY_CLIENT_SECRET=your_spotify_client_secret
 6. Open: http://127.0.0.1:5000
 
 ## Live Demo
-[Deployed on Render.com](https://your-app.onrender.com) (coming soon!)
+[Deployed on Railway.com](coming soon!)
