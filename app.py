@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, jsonify
 from spotify_api import get_popular_tracks
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -32,3 +32,4 @@ if __name__ == '__main__':
     import os
     port = int(os.getenv('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
+
