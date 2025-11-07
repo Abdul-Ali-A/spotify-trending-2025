@@ -23,5 +23,4 @@ SPOTIPY_CLIENT_SECRET=your_spotify_client_secret
 5. Run: `python app.py`
 6. Open: http://127.0.0.1:5000
 
-## Live Demo
-[Deployed on Railway.com](coming soon!)
+
